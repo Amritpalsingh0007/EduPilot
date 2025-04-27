@@ -57,10 +57,10 @@ export default function Lesson() {
                     // if the paragraph node has a single child
                     // that is a code or pre element, return the child directly
                     if (
-                      node.children.length === 1 &&
-                      (node.children[0].type === "element" &&
+                      node?.children.length === 1 &&
+                      (node?.children[0].type === "element" &&
                       ["code", "pre"].includes(
-                        (node.children[0] as any).tagName
+                        (node?.children[0] as any).tagName
                       ))
                     ) {
                       return <>{children}</>;
@@ -78,21 +78,7 @@ export default function Lesson() {
                       </pre>
                     );
                   },
-                  // 3) Render inline vs block code
-                  code({ node, inline, children, ...props }) {
-                    if (inline) {
-                      return (
-                        <code
-                          className="bg-indigo-50 text-indigo-700 px-1 py-0.5 rounded text-sm"
-                          {...props}
-                        >
-                          {children}
-                        </code>
-                      );
-                    }
-                    // block code is already handled by <pre> override
-                    return <code {...props}>{children}</code>;
-                  },
+                  
                   // you can keep your custom headings, lists, etc.
                   h1: ({...props}) => <h1 className="text-2xl font-bold text-indigo-800 mt-6 mb-4" {...props} />,
                   h2: ({...props}) => <h2 className="text-xl font-bold text-indigo-700 mt-5 mb-3" {...props} />,

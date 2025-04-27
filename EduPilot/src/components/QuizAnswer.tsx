@@ -23,7 +23,7 @@ export default function QuizAnswer() {
   useEffect(() => {
     if (!token) return;
     const {strengths, weaknesses, mcq_score}:{strengths:string[], weaknesses:string[], mcq_score:Number} = createStrengthAndWeaknesses();
-    submitQuiz(token,state!.fileID, strengths, weaknesses, mcq_score);
+    submitQuiz(token,state!.fileID, strengths, weaknesses, (mcq_score as number));
     console.log("Successfully submitted strength and weakness data to the server.");
  }, [answerList]);
 

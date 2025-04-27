@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import CalendarHeatmap from "react-calendar-heatmap";
+import { useState, useEffect } from "react";
+import CalendarHeatmap, { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import { subDays, format } from "date-fns";
 
-const Heatmap = ({token}:{token:string}) => {
+const Heatmap = () => {
   const today = new Date();
-  const [values, setValues] = useState([]);
+  const [values, setValues] = useState<{date: string, count: number}[]>([]);
 
   // Generate static data only once
   useEffect(() => {
@@ -27,18 +27,18 @@ const Heatmap = ({token}:{token:string}) => {
             endDate={today}
             values={values}
             classForValue={(value) => {
-              if (!value || value.count === 0) return "color-empty";
+              if (!value || value.count === undefined || value.count === 0) return "color-empty";
               return `color-scale-${Math.min(value.count, 10)}`;
             }}
             gutterSize={3}
             showWeekdayLabels={true}
-            onMouseOver={(event, value) => {
+            onMouseOver={(event: React.MouseEvent<SVGRectElement, MouseEvent>, value: ReactCalendarHeatmapValue<string> | undefined) => {
               if (!value) return;
               setTooltip({
                 show: true,
                 x: event.clientX,
                 y: event.clientY,
-                text: `${value.date}: ${value.count} contributions`,
+                text: `${value.date}: ${value.count ?? 0} contributions`,
               });
             }}
             onMouseLeave={() => setTooltip({ ...tooltip, show: false })}

@@ -1,9 +1,9 @@
 import { format, subDays } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 
-const MyLineChart = ({token}:{token:string}) => {
+const MyLineChart = () => {
     const [data, setData] = useState<{ date: string; value: number; }[]>([]);
     const today = new Date();
     // Generate static data only once
