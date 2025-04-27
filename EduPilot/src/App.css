@@ -1,0 +1,64 @@
+/* Tailwind Custom Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #e0e0e0; /* Light gray track */
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #888; /* Dark gray handle */
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+/*This css is for heatmap calender component*/
+  .color-empty {
+    fill: #ebedf0; /* Light gray for no activity */
+  }
+  
+  .color-scale-1 {
+    fill: #c6e48b;
+  }
+  
+  .color-scale-2 {
+    fill: #7bc96f;
+  }
+  
+  .color-scale-3 {
+    fill: #239a3b;
+  }
+  
+  .color-scale-4 {
+    fill: #196127;
+  }
+  
+  .color-scale-5 {
+    fill: #0a420f;
+  }
+  
+  .color-scale-6 {
+    fill: #004d00;
+  }
+  
+  .color-scale-7 {
+    fill: #003b00;
+  }
+  
+  .color-scale-8 {
+    fill: #002900;
+  }
+  
+  .color-scale-9 {
+    fill: #001800;
+  }
+  
+  .color-scale-10 {
+    fill: #000d00; /* Darkest green */
+  }
+  
