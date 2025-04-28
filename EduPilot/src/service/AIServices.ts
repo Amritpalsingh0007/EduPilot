@@ -1,10 +1,10 @@
 import axios from "axios";
-
+const BaseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 // Fetches response for chat conversion
 async function getResponse(token: string, message: string) {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/v1/chat",
+      BaseURL + "/api/v1/chat",
       { prompt: message },
       {
         headers: {
@@ -23,7 +23,7 @@ async function getResponse(token: string, message: string) {
 // Fetches roadmap
 async function getRoadmap(token: string) {
   try {
-    const response = await axios.get("http://127.0.0.1:8000/api/v1/roadmap", {
+    const response = await axios.get(BaseURL + "/api/v1/roadmap", {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -42,8 +42,8 @@ async function uploadFile(token: string, file: File) {
       const formData = new FormData();
       formData.append("file", file); 
   
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/v1/file/upload",
+      const response = await axios.post( BaseURL+ 
+        "/api/v1/file/upload",
         formData,
         {
           headers: {
@@ -62,8 +62,9 @@ async function uploadFile(token: string, file: File) {
   
 // Fetches files for the user
 async function getUserFiles(token: string) {
+  console.log("Fetching user files... : "+ `${BaseURL}api/v1/file/`);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/v1/file/", {
+      const response = await axios.get( BaseURL+"/api/v1/file/", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -79,7 +80,7 @@ async function getUserFiles(token: string) {
 // Fetches lessons for a specific file
 async function getLessons(token: string, fileId: string) {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/file/lessons/${fileId}`, {
+    const response = await axios.get(`${BaseURL}/api/v1/file/lessons/${fileId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -96,7 +97,7 @@ async function getLessons(token: string, fileId: string) {
 // Fetches lessons for a specific file
 async function getContent(token: string, fileId: string) {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/file/lessons/content/${fileId}`, {
+    const response = await axios.get(`${BaseURL}/api/v1/file/lessons/content/${fileId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -113,7 +114,7 @@ async function getContent(token: string, fileId: string) {
 // Fetches lessons for a specific file
 async function createLesson(token: string, fileId: string) {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/lesson/create/${fileId}`, {
+    const response = await axios.get(`${BaseURL}/api/v1/lesson/create/${fileId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -129,7 +130,7 @@ async function createLesson(token: string, fileId: string) {
 // Fetches lessons for a specific file
 async function getQuiz(token: string, lessonID: string) {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/v1/lesson/quiz/${lessonID}`, {
+    const response = await axios.get(`${BaseURL}/api/v1/lesson/quiz/${lessonID}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -144,7 +145,7 @@ async function getQuiz(token: string, lessonID: string) {
 
 async function submitQuiz(token: string, fileID: string, strengths: string[], weaknesses: string[], mcq_score: number) {
   try {
-    await axios.post(`http://127.0.0.1:8000/api/v1/file/${fileID}`,{
+    await axios.post(`${BaseURL}/api/v1/file/${fileID}`,{
       strength: strengths,
       weakness: weaknesses,
       mcq_score: mcq_score

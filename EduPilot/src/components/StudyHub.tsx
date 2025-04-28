@@ -78,7 +78,7 @@ const goToRoadmap = (fileId: string) => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-6">
+    <div className="w-full bg-gradient-to-br from-purple-50 to-blue-100 p-6">
       <div className="bg-gradient-to-r from-purple-600 to-indigo-600 font-bold text-2xl text-white mb-8 p-4 rounded-lg shadow-lg">
         Study Hub
       </div>

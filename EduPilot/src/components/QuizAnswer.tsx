@@ -50,7 +50,7 @@ export default function QuizAnswer() {
 
   if (!state) {
     return (
-      <div className="w-full min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-6 flex items-center justify-center">
+      <div className="w-full  bg-gradient-to-br from-purple-50 to-blue-100 p-6 flex items-center justify-center">
         <div className="bg-white rounded-xl shadow-lg p-8 text-center">
           <div className="rounded-full bg-indigo-100 w-16 h-16 flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

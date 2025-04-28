@@ -55,7 +55,7 @@ export default function Quiz() {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-6 flex items-center justify-center">
+    <div className="w-full  bg-gradient-to-br from-purple-50 to-blue-100 p-6 flex items-center justify-center">
       <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4">
           <h1 className="font-bold text-2xl">Quiz</h1>

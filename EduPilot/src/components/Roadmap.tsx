@@ -61,7 +61,7 @@ export default function Roadmap() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 p-6">
+    <div className="w-full bg-gradient-to-br from-purple-50 to-blue-100 p-6">
       {/* Loading Overlay */}
       {generating && (
         <div className="fixed inset-0 bg-purple-900/40 backdrop-blur-sm flex items-center justify-center z-50">
