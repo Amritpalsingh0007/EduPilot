@@ -8,7 +8,7 @@ load_dotenv()
 firebase_credentials = os.getenv("FIREBASE_CREDENTIALS")
 if not firebase_credentials:
     raise ValueError("FIREBASE_CREDENTIALS environment variable not set")
-print("Firebase credentials loaded successfully.", firebase_credentials)
+print("Firebase credentials loaded successfully.")
 # Replace the escape sequence '\\n' with actual newlines
 firebase_credentials = firebase_credentials.replace('\\\\n', '\\n')
 
