@@ -38,7 +38,7 @@ bower_components/
 **/__pycache__/
 
 # Ignore all text files (optional — be careful!)
-*.txt
+the-verdict.txt
 
 # Ignore sensitive files (Firebase key)
 EduServices/AIServices/Firebase/serviceAccountKey.json
