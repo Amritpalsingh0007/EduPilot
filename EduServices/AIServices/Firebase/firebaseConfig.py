@@ -15,3 +15,4 @@ firebase_credentials = firebase_credentials.replace('\\\\n', '\\n')
 # Now load the credentials
 cred = credentials.Certificate(json.loads(firebase_credentials))
 initialize_app(cred)
+print("Firebase Initialized successfully!")
