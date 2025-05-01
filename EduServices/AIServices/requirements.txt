@@ -2,6 +2,7 @@ fastapi
 firebase
 firebase-admin
 gcloud
+google-generativeai
 google-ai-generativelanguage
 langchain
 langchain-google-firestore
