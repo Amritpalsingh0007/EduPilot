@@ -1,5 +1,7 @@
 import os
 from dotenv import load_dotenv
+import firebase_admin
+import firebase_admin.firestore
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 from google.cloud import firestore
@@ -10,7 +12,7 @@ load_dotenv()
 PROJECT_ID = os.getenv('PROJECT_ID')
 COLLECTION_ID = 'chat_history'
 
-client = firestore.Client(project=PROJECT_ID)
+client = firebase_admin.firestore.client()
 model = ChatGoogleGenerativeAI(model = "gemini-1.5-pro")
 
 def generateMessage(humanMessage, systemMessage="you are a tutor. You must explain everything step by step or in simple but detail enough way for student's complete understanding"):
