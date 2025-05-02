@@ -34,7 +34,7 @@ const Heatmap = ({ data }: { data: { date: string; count: number }[] }) => {
                 show: true,
                 x: event.clientX,
                 y: event.clientY,
-                text: `${value.date}: ${value.count ?? 0} quizs`,
+                text: `${value.date}: ${value.count ?? 0} quiz${value.count <= 1 ? "" : "es"}`,
               });
             }}
             onMouseLeave={() => setTooltip({ ...tooltip, show: false })}
