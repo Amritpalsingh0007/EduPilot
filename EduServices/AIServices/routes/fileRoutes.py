@@ -1,3 +1,4 @@
+from datetime import date
 import os
 import shutil
 import uuid
@@ -219,6 +220,13 @@ async def updateStrengthWeakness(file_id: str, request: Request):
         doc_ref = db.collection("pdf_files").document(file_id)
         doc = doc_ref.get()
 
+        user_doc_ref = db.collection("users").document(user_id)
+        user_doc = user_doc_ref.get()
+
+        if not user_doc.exists:
+            raise HTTPException(status_code=404, detail="User not found")
+        user_data = user_doc.to_dict()
+
         if not doc.exists:
             raise HTTPException(status_code=404, detail="File not found")
 
@@ -233,14 +241,31 @@ async def updateStrengthWeakness(file_id: str, request: Request):
         strength = body.get("strength", [])
         weakness = body.get("weakness", [])
         mcq_score = body.get("mcq_score", 0)
-        
+
+        activity = user_data.get("activity", [])
+        today_str = date.today().isoformat()
+
+        if activity:
+            if activity[-1].get("date") == today_str:
+                activity[-1]["count"] += 1
+            else:
+                activity.append({"date": today_str, "count": 1})
+            user_doc_ref.update({"activity": activity})
+        else:
+            user_doc_ref.update({"activity": [{"date": today_str, "count": 1}]})
+
         current_strength = doc_data.get("strength", [])
         current_weakness = doc_data.get("weakness", [])
         mcq_scores = doc_data.get("mcq_scores", [])
 
-        strength = current_strength[((len(current_strength) + len(strength)) - 20 if (len(current_strength) + len(strength)) > 20  else 0):] + strength
-        weakness = current_weakness[((len(current_weakness) + len(weakness)) - 20 if (len(current_weakness) + len(weakness)) > 20  else 0):] + weakness
+        combined_strength = list(set(current_strength + strength))
+        strength = combined_strength[-20:]
+
+        combined_weakness = list(set(current_weakness + weakness))
+        weakness = combined_weakness[-20:]
         mcq_scores = mcq_scores[(1 if len(mcq_scores) == 10 else 0):] + [mcq_score]
+        print("mcq_scores: ", mcq_scores)
+        print("above is the list for mcq_scores---------------)))))))")
 
         strength = list(set(strength))
         weakness = list(set(weakness))
@@ -257,6 +282,35 @@ async def updateStrengthWeakness(file_id: str, request: Request):
 
     except Exception as e:
         print(f"Error updating strength and weakness: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@fileRouter.get("/activity")
+async def get_user_activity(request: Request):
+    try:
+        # Step 1: Validate Firebase token
+        auth_header = request.headers.get("Authorization")
+        if not auth_header or not auth_header.startswith("Bearer "):
+            raise HTTPException(status_code=401, detail="Missing or invalid authorization header")
+
+        id_token = auth_header.split(" ")[1]
+        decoded_token = auth.verify_id_token(id_token)
+        user_id = decoded_token["uid"]
+        print(f"Authenticated Firebase user: {user_id}")
+
+        # Step 2: Fetch the user document
+        user_doc_ref = db.collection("users").document(user_id)
+        user_doc = user_doc_ref.get()
+
+        if not user_doc.exists:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        user_data = user_doc.to_dict()
+        activity = user_data.get("activity", [])
+
+        return {"activity": activity}
+
+    except Exception as e:
+        print(f"Error fetching user activity: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

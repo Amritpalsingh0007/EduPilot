@@ -162,4 +162,20 @@ async function submitQuiz(token: string, fileID: string, strengths: string[], we
 
 }
 
-export { getResponse, getRoadmap, uploadFile, getUserFiles, getLessons, getContent, createLesson, getQuiz, submitQuiz };
+
+async function getActivity(token: string) {
+  try {
+    const response = await axios.get(`${BaseURL}/api/v1/file/activity`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data.activity; 
+  } catch (error) {
+    console.error("Error fetching lessons:", error);
+    return [];
+  }
+}
+
+export { getResponse, getRoadmap, uploadFile, getUserFiles, getLessons, getContent, createLesson, getQuiz, submitQuiz, getActivity };

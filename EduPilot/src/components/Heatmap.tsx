@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react";
 import CalendarHeatmap, { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
-import { subDays, format } from "date-fns";
+import { subDays } from "date-fns";
 
-const Heatmap = () => {
+const Heatmap = ({ data }: { data: { date: string; count: number }[] }) => {
   const today = new Date();
   const [values, setValues] = useState<{date: string, count: number}[]>([]);
 
-  // Generate static data only once
   useEffect(() => {
-    const generatedValues = Array.from({ length: 365 }, (_, i) => ({
-      date: format(subDays(today, i), "yyyy-MM-dd"),
-      count: Math.floor(Math.random() * 11), // Random count (0–10)
-    }));
-    setValues(generatedValues);
+    setValues(data);
+    console.log(data);
   }, []);
 
   const [tooltip, setTooltip] = useState({ show: false, x: 0, y: 0, text: "" });
@@ -38,7 +34,7 @@ const Heatmap = () => {
                 show: true,
                 x: event.clientX,
                 y: event.clientY,
-                text: `${value.date}: ${value.count ?? 0} contributions`,
+                text: `${value.date}: ${value.count ?? 0} quizs`,
               });
             }}
             onMouseLeave={() => setTooltip({ ...tooltip, show: false })}
