@@ -50,7 +50,7 @@ export default function Roadmap() {
           return;
         }
         setGenerating(false);
-        navigate(`/lesson/${response.lesson_id}`);
+        navigate(`/lesson/${fileId}/${response.lesson_id}`);
       } catch (error) {
         console.error("Failed to fetch user files:", error);
         setGenerating(false);
